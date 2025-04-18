@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>데이터 출력하기</h2>
+    <p>html페이지나 개발자도구에 원하는 데이터 출력하기</p>
+    <ul>
+        <li>
+            html페이지에 출력 -> 동적으로 문구를 수정할때 <br>
+            write(), HTMLElment.innerText||inneerHTML속성을 이용 
+        </li>
+        <li>
+            console창에 출력 -> 경고, 발생한 에러 정보를 출력하거나 디버깅용 데이터를 출력할때 <br>
+            console.log(), console.error(), console.warn(), console.dir(), console.table()
+        </li>
+        <li>
+            알림창으로 출력 -> 알림 메세지를 출력할때 <br>
+            alert() 메소드 이용 
+        </li>
+    </ul>
+
+    <h3>console창에 출력하기</h3>
+    <p id="p">
+        js가 제공하는 console객체를 이용, <br>
+        개발자도구 console탭에서 확인이 가능 <br>
+        js코드 관련된 사항을 출력 <br>
+    </p>
+
+    <script>
+        console.log('나의 첫 로그');
+        //변수 출력하기 
+        var data = "유병승";
+        console.log(data);
+
+        //에러메세지, 경고메세지를 띄울때 
+        console.error("에러 발생");
+        console.warn("경고 경고 경고 ");
+
+        //객체의 정보를 출력할때
+        // dir()
+        var testTag=document.getElementById("p");
+        console.log(testTag);
+        console.dir(testTag);
+        var obj = {name:"유병승" , age:19, gender:'남'};
+        console.table(obj);
+
+    </script>
+
+    <h3>알람창으로 데이터 출력하기</h3>
+    <p>
+        alert() 함수를 호출 -> window객체가 제공 <br>
+        window객체를 browser마다 생성 <br>
+        window객체는 최상위 객체로 메소드등을 사용할때 생략하고 사용할 수 있다. <br>
+        window.alert("출력문구"); <br>
+        alert("출력문구");
+    </p>
+    <script>
+        window.alert("조금만 더하면 되요!!");
+        alert("생략하고 사용하기");
+        var msg = "너 이거 꼭 확인해!";
+        alert(msg);
+        // alert(testTag);
+        // alert(obj);
+    </script>
+
+    <h3>html페이지에 문구추가하기</h3>
+    <h4>document.write()함수</h4>
+    <button onclick="document.write('<h3>이제 하나 남았어</h3>')">클릭해봐!</button>
+    <script>
+        document.write("이거는 js로 추가한 내용");
+        document.write("<h2>이것도 추가하자</h2>");
+    </script>
+
+    <h3>특정태그에 문구를 작성, 수정</h3>
+    <p>
+        HTMLElement객체의 innerText, inneerHTML속성을 이용 <br>
+        innerText : 모든 대입된 문자를 문자열로 처리 <br>
+        innerHTML : 태그형식의 문자는 태그로 해석, 일반문자는 일반문자로 해석 <br>
+    </p> 
+    <div id="container"></div>
+    <script>
+        var test="<script>alert('메롱');<";
+                test+="/script>";
+        document.getElementById("container")
+        // .innerHTML="<h3>오늘은 이것까지만 할까요??</h3>";
+        .innerHTML=test;
+    </script>
+</body>
+</html>
