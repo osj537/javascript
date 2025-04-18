@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<input>
+    <h2>html태그에 접근하기</h2>
+    <p>
+        javascript에서 태그를 한개 객체로 취급함. -> DOM <br>
+        js가 제공하는 document객체를 이용해서 html에 있는 태그를 객체로 가져올 수 있음 <br>
+    </p>
+    <ul>
+        <li>
+            getElementById() : 태그에 설정된 id속성을 기준으로 태그를 가져옴 -> 한개만
+        </li>
+        <li> getElementsByClassName(): 태그에 설정된 class속성값을 기준으로 태그를 가져옴 -> 다수 태그 (0개 이상) </li>
+        <li>getElementsByName() : 태그이름으로 태그를 가져옴 -> 다수 (0개 이상) </li>
+        <li>getElementsByTagName() : 태그에 설정된 name속성값(input)을 기준으로 태그를 가져옴 -> 다수 (0개 이상)</li>
+        <li>querySelector() : 인수에 설정된 선택자에 해당하는 태그 한개를 가져옴 -> 0~1개</li>
+        <li>querySelectorAll() : 인수에 설정된 선택자에 해당하는 태그 한개이상을 가져옴 -> 다수 (0개 이상) </li>
+        <li>다수 : 리스트형태 / 한개 HtmlElement </li>
+    </ul>
+
+    <h3>id속성으로 태그 가져오기</h3>
+
+    <!-- <script>
+        console.log(document.getElementById("jms"));    jms가 아래 있으므로 찾을수없어서 null 
+    </script> -->
+    
+    <p id="jms">장명수님은 오늘 늦게왔다. 왜 늦었을까? 하지만 지각은 아니다</p>
+   
+   <script>
+        console.log(document.getElementById("jms"));
+   
+   </script>
+
+   <h3>class속성으로 태그가져오기</h3>
+   <p class="a">p class a</p>
+   <span class="a">span class a</span>
+   <div class="a b">div class a b</div>
+   <h3 class="c">h3 class c</h3>
+   <p class="a b c">p class a b c</p>
+   <script>
+    console.log(document.getElementsByClassName("a"));
+    console.log(document.getElementsByClassName("a")[0]);
+    console.log(document.getElementsByClassName("c"));
+   </script>
+
+   <h3>태그명으로 가져오기</h3>
+   <ul>
+    <li>html</li>
+    <li>css</li>
+    <li>javascipt</li>
+    <li>jquery</li>
+   </ul>
+    <script>
+        console.log(document.getElementsByTagName("li"));  //전체태그에서 조회 바로위 li만 조회 하는게 아님 
+    </script>
+    <h3>name 속성으로 가져오기</h3>
+    <input type="checkbox" name="hobby" value="코딩"><span>코딩</span>
+    <input type="checkbox" name="hobby" value="수영"><span>수영</span>
+    <input type="checkbox" name="hobby" value="걷기"><span>걷기</span>
+    <input type="checkbox" name="hobby" value="먹기"><span>먹기</span>
+
+    <script>
+        console.log(document.getElementsByName("hobby"));
+    </script>
+
+    <h3>선택자를 이용해서 가져오기</h3>
+    <h4>한개태그 가져오기</h4>
+    <script>
+        console.log(document.querySelector("#jms")); // id jms
+        console.log(document.querySelector(".a"));  // 그중에서 가장 위에 있는 하나만 가져옴  클래스 a
+        console.log(document.querySelector("[type=checkbox]")); //속성 
+        console.log(document.querySelector("h3+h4")); //
+    </script>
+
+    <h4>다수 태그를 가져오기</h4>
+    <script>
+        console.log(document.querySelectorAll(".b"));
+        console.log(document.querySelectorAll("#jms"));
+    </script>
+
+    <h3>가져온 태그는 객체로 취급하고 객체의 속성(필드)을 수정해서 태그를 수정할 수 있음</h3>
+    <script>
+        document.getElementById("jms").style.
+        backgroundColor="yellow";  //대소문자 구분함 
+    </script>
+</body>
+</html>
