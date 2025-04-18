@@ -82,7 +82,12 @@
         innerHTML : 태그형식의 문자는 태그로 해석, 일반문자는 일반문자로 해석 <br>
     </p> 
     <div id="container"></div>
+    <button onclick="inputData();">저장</button>
     <script>
+        function inputData() {
+            var t=document.getElementById("container");
+            t.innerHTML="<h2>오늘은 이걸로 끝! 지금부터 본인페이지 만들기!</h2>";
+        }
         var test="<script>alert('메롱');<";
                 test+="/script>";
         document.getElementById("container")
