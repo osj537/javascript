@@ -1,0 +1,39 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jS 적용하기</title>
+</head>
+<body>
+    <h2>자바스크립트 적용하기</h2>
+    <ul>
+        <li>inline방식 : 이벤트 속성에 자바스크립트 구문을 작성하는 것 <br></li>
+        <li>internal방식 : html내  script태그에 자바스크립트 구문을 작성하는 것 
+            script태그를 다수 작성할 수 있고, 선언위치는 제한이없다.
+        </li>
+        <li> external방식 : *.js파일을 생성하고 파일내부에 자바스크립트 구문을 작성하는 것 
+            script태그를 이용ㅌㄴ해서 파일을 불러와 사용 
+        </li>
+    </ul>
+    <p>자바스크립트는 인터프리터 방식으로 위에서 순차적으로 발생함 <br>
+       코드의 위치가 중요하다.
+    </p>
+    <h3>inline방식으로 적용</h3>
+    <button onclick="const name='bs';alert(name);">클릭하기</button>
+    <h2 onmouseenter="alert('들어왔다!!')">나한테 마우스 올려봐</h2>
+
+    <h3>internal 방식으로 적용</h3>
+    <script>
+        alert("internal방식으로 출력 ");
+    </script>
+    <!-- 마우스가 들어왓을때 사용 internal -->
+    <h3>external방식</h3>
+    <script src="./js/basic.js"></script>
+</body>
+</html>
+<script>
+    alert('html밖에');
+</script>
