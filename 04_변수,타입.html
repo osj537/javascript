@@ -116,19 +116,19 @@
 
         
     </script>
-    <h3>변수의 중복선언을 허용함</h3>
-    <script>
-        console.log(aglobalVar);
-        var aglobalVar="이건 내가 선언한것";
-        console.log(aglobalVar);
-        var func = function(){
-            alert=("이건 함수야!");
-        }
-        func();
-        var func=10;
-        // func();
-
-    </script>
+   
+   <h3>변수의 중복선언을 허용함</h3>
+   <script>
+       console.log(aglobalVar);
+       var aglobalVar="이건 내가 선언한것.";
+       console.log(aglobalVar);
+       var func=function(){
+           alert("이건 함수야!");
+       }
+       func();
+       var func=10;
+       // func();
+   </script>
 
     <h3>변수 호이스팅</h3>
     <p>
@@ -188,8 +188,94 @@
         //[] 배열, {} Object
         const constArr=[];
         constArr[0]=100;
+        constArr.push(90)
         console.log(constArr);
 
+        const constObj={};
+        constObj.name="유병승";
+        console.log(constObj);
+
+        //script태그 내부의 코드가 에러가 발생하면
+        //그 아래 코드실행을 생략
+        // const constObj;
+        // console.log("이거 실행하니?");
+
     </script>
+
+        <!-- <script>   
+            console.log("이것도 실행 안함?");
+        </script> -->
+
+        <h2>형변환</h2>
+        <p>
+            자동 형변환 : 형변환을 compiler가 알아서 처리하는것 <br>
+            강제 형변환 : 연산자로 변환하는 것  <br>
+        </p>
+        <h3>자동 형변환</h3>
+        <p>
+            js에서는 자동형변환이 유연하게 적용됨.
+        </p>
+        <script>
+            let num=100;
+            let numStr="100";
+            let num2=200;
+            let numStr2="200원";
+
+            console.log(typeof num, typeof numStr);
+            console.log(num+numStr); //결합연산 
+            console.log(num-numStr); 
+            console.log(num*numStr);
+            console.log(num/numStr);
+            console.log(num%numStr);
+            console.log(num==numStr);
+
+            console.log(num2+numStr2);
+            console.log(num2-numStr2); // NaN(Not A Number)
+        </script>
+
+        <h3>강제형 변환하기</h3>
+        <p>
+            문자열 -> 숫자형 : Number(), parseInt() <br>
+            숫자형 -> 문자열 : 숫자변수.toString() <br>
+        </p>
+        <script>
+            console.log(num, typeof num);
+            console.log(num.toString(), typeof num.toString());
+
+            console.log(numStr,typeof numStr);
+            console.log(Number(numStr),typeof Number(numStr));
+            console.log(parseInt(numStr),typeof parseInt(numStr));
+
+            console.log(numStr2,typeof numStr2);
+            //Number는 숫자로 변환이 가능한 문자열만 가능 
+            // 예) "100", "180.5"
+            console.log(Number(numStr2),typeof Number(numStr2));
+            //parseInt()는 숫자로 되어 있으면서 맨뒤에 문자가 있는 경우 가능
+            //예) 100원, 24px, 104%, 30pt 
+            console.log(parseInt(numStr2),typeof parseInt(numStr2));
+            numStr2="$22.2"; //안됨 
+            console.log(parseInt(numStr2));
+
+        </script>
+
+        <h3>나만의 계산기 만들기</h3>
+        <div id="calc-container">
+        <input type="number" name="su">
+        <input type="number" name="su1">
+        <button onclick="calcTest();">더하기</button>
+        </div>
+    <div class="result"></div>
+    <script>
+        const calcTest=function(){
+            // const su=document.getElementsByName("su")[0].value;
+            // const su1=document.getElementsByName("su1")[0].value;
+        const su=document.querySelectorAll("#calc-container>input")[0].value;
+        const su1=document.querySelectorAll("#calc-container>input")[1].value;
+        
+        console.log(su,su1);
+            document.getElementsByClassName("result")[0]
+            .innerHTML="<h3>"+(Number(su)+Number(su1))+"</h3>";
+            }
+        </script>
 </body>
 </html>
