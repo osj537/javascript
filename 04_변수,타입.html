@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>변수선언하기</h2>
+    <p>
+        js는 동적타입을 사용하기 때문에 변수를 선언할때 자료형을 선언하지 않음 <br>
+        var 예약어를 이용해서 변수를 선언 <br>
+        선언방식 : var 변수명;<br>
+    </p>
+    <script>
+        // 변수선언하기 
+        var data;
+        
+    </script>
+
+    <p>
+        변수의 타입은 변수에 대입된 값을 기준으로 설정 <br>
+        한개 변수에 다수의 자료형 값을 지정할 수 있다. 
+    </p>
+
+    <ul>타입별 리터럴 표시
+        <li>string : 문자열, "" 또는 '' 으로 표시, 예시) "화이팅" = '화이팅'</li>
+        <li>number : 숫자(정수, 실수), 180, 65.4 표시, 실수/정수 구분없이 저장</li>
+        <li>boolean : true/false  </li>
+        <li>object : new Object명(), {ket:value, key2:value2,...}
+        new Data(), new RegExp(),....</li>
+        <li>Array : new Array(), [값,값2,값3,...]</li>
+        <li>function : function ([배개변수,...]){[return 값;]},([매개변수,...])=>{[return값;]}</li>
+        <li>null : 값 없음을 의도적으로 표시할때 사용 ,null</li>
+        <li>undefined : 자동대입, 선언된 변수를 초기화 하지 않으면 저장되는 타입 </li>
+    </ul>
+    <script>
+        //typeof 어떤 타입인지 확인하는 연산자 -> 문자열로 반환 
+        var data2;
+        console.log(data2,typeof data2);
+        data2 = "월요일 점심 맛있다!";
+        console.log(data2, typeof data2);
+        data2=180.5;
+        console.log(data2, typeof data2);
+        data2 = 90;
+        console.log(data2, typeof data2);
+        data2 = true;
+        console.log(data2, typeof data2);
+        data2 = new Object();
+        console.log(data2 ,typeof data2);
+        data2 ={"name":"유병승","age":19};
+        console.log(data2, typeof data2);
+        console.log(data2, Array.isArray(data2));
+        data2 = new Array();
+        console.log(data2, typeof data2);
+        data2 = [1,2,3,4,5];
+        console.log(data2, typeof data2);
+        // isArray() 함수 제공 -> 배열인지 아닌지 확인 
+        console.log(data2, Array.isArray(data2));
+
+        data2=function(){}; //메소드 선언과 비슷 / 함수도 하나의 값으로 처리 / data2 라는 메소드 
+        console.log(data2,typeof data2);
+
+        data2=()=>{};
+        console.log(data2, typeof data2);
+
+        data2 = null; // 값을 넣는순간 타입 
+        console.log(data2, typeof data2);
+
+        // 다른 script태그에 있는 변수 이용할 수 있다.
+        data="졸면";
+        console.log(data);
+    </script>
+    <!-- 외부에있는 js이용하기 -->
+    <!-- <script src="./js/basic.js"></script>  -->
+    <script>
+        console.log("test");
+        var test="우와 신기하다";
+        </script>
+    <script>
+        console.log(test);
+    </script>
+
+    <h3>var로 선언된 변수의 scope</h3>
+    <p>
+        전역변수 : function외부에 선언된 모든 변수 -> window의 맴버변수로 등록됨 <br>
+        지역변수 : function내부에 선언된 변수 -> function에서만 사용 <br>
+        js는 블록범위를 사용하지 않음 <br>
+    </p>
+    <script>
+        var aglobalVar="전역변수";
+        function localTest() {
+            var localVar="지역변수";
+            console.log(localVar);
+        }
+        console.log(aglobalVar);
+        // console.log(localVar);
+        localTest();
+        console.log(window);
+       
+        //블록범위를 사용하지 않음
+        var age=19;
+        if(age<20) {
+            var invar="if문 안에 있는 변수";
+        }
+        console.log(invar);
+        for(var i=0;i<10;i++){
+            var data3="안녕";
+            // var data3=+i;
+            // data3=+i;
+        }
+        console.log(i, data3);
+
+        data3="잘가";
+        console.log(i, data3);
+
+        
+    </script>
+    <h3>변수의 중복선언을 허용함</h3>
+    <script>
+        console.log(aglobalVar);
+        var aglobalVar="이건 내가 선언한것";
+        console.log(aglobalVar);
+        var func = function(){
+            alert=("이건 함수야!");
+        }
+        func();
+        var func=10;
+        // func();
+
+    </script>
+
+    <h3>변수 호이스팅</h3>
+    <p>
+        변수가 선언된 라인을 읽기전에 변수를 호출할 수 있게 해주는 것! 
+    </p>
+    <script>
+        console.log(hoisting);
+        var hoisting="호이스팅!";
+    </script>
+
+    <h3>ES6에서 let,const예약어 추가</h3>
+    <p>
+        1.중복선언을 허용하지 않음 <br>
+        2.블록범위를 준수함 <br>
+        3.호이스팅 허용하지 않음 -> 읽는 것을 막아버림 <br>
+    </p>
+    <p>
+        선언방법
+        let 변수명; -> 변경이 가능한 변수(일반변수) <br>
+        const  변수명; -> 변경이 불가능한 변수(상수) <br>
+    </p>
+
+    <script>
+        let letVar;
+        console.log(letVar);
+        letVar="여러분 힘내요!";
+        console.log(letVar);
+
+        //변수의 중복선언을 허용하지 않는다.
+        // let letVar=100; 
+
+        //블록범위를 준수함
+        let su = 0;
+        if(su>0) {
+            let localVar="블록내부";
+        }
+        for(let j=0;j<10;j++) {
+
+        }
+        // console.log(localVar);
+        // console.log(j);
+
+        //호이스팅된 변수를 불러올 수 없음
+        // console.log(letTest);
+        // let letTest=100;
+
+        //상수 선언하기 -> 선언과 동시에 초기화 해야함.
+        const constVar = "test";
+        console.log(constVar);
+        // constVar=100;
+
+        const func2 = function(){
+            alert("함수에 설정");
+        }
+        // let func2 = "123";
+        // func2 = "dfdgf";
+        //[] 배열, {} Object
+        const constArr=[];
+        constArr[0]=100;
+        console.log(constArr);
+
+    </script>
+</body>
+</html>
