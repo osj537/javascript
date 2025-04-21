@@ -94,5 +94,46 @@
         // .innerHTML="<h3>오늘은 이것까지만 할까요??</h3>";
         .innerHTML=test;
     </script>
+
+    <h2>데이터 입력받기</h2>
+    <h3>window객체가 제공하는 함수</h3>
+    <ul>
+        <li>confirm() : 확인할 메세지와 확인, 취소버튼을 알림창으로 출력하는 함수 -> 반환형 (true, false)</li>
+        <li>prompt() : 사용자에게 입력할 창을 출력해주는 함수 -> 입력한 값을 반환  </li>
+    </ul>
+    <h3>input, textarea, select 태그를 이용하기</h3>
+        <p>
+            input, textarea, select 태그로 입력받은 값은 value 속성에 저장이 됨,
+            저장된 값은 HTMLElment.value 속성을 이용해서 가져올 수 있음. 
+            * 이벤트와 같이 설정해서 가져옴
+        </p>
+
+        <h3>confirm(),propmt 이용하기 </h3>
+        <script>
+            // var result = window.confirm("당신은 성인입니까?");
+            // console.log(result);
+            // var result = window.prompt("당신은 성인입니까?");
+            // console.log(result);
+        </script>
+
+        <h3>태그이용해서 값 입력받기</h3>
+        <input type="text" name="msg" id="">
+        <button onclick="saveData();">저장</button>
+        <div id="msg-container"></div>
+        <textarea cols="40" rows="5" id="info"></textarea>
+        <button onclick="infoData();">정보가져오기</button>
+        <script>
+
+            function infoData() {
+                var data = document.getElementById("info").value;
+                document.querySelector("#msg-container").innerHTML="<h3>"+data+"</h3>";
+            }
+            function saveData() {
+                // alert("함수실행");
+                var data = document.getElementsByName("msg")[0].value;
+                console.log(data);
+                document.getElementById("msg-container").innerHTML=data;
+            }
+        </script>
 </body>
 </html>
