@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반복문 활용하기</title>
+</head>
+<body>
+    <h2>반복문 활용</h2>
+    <p>
+        for문, while, do~while
+    </p>
+    <h3>for문</h3>
+    <p>
+        for(변수;조건문;증감연산) {반복할 코드}
+    </p>
+    <script>
+        for(let i=0;i<10;i++) {
+            console.log(i);
+        }
+    </script>
+    <h3>while문</h3>
+    <p>
+        while(조건문) {반복할코드}
+    </p>
+    <script>
+        let num=0;
+        while(num<10) {
+            console.log(num++);
+        }
+    </script>
+    <h3>다수의 태그를 가져와서 속성을 수정할때</h3>
+    <div id="h-container">
+        <h2>h2 1</h2>
+        <h2>h2 2</h2>
+        <h2>h2 3</h2>
+        <h2>h2 4</h2>
+        <h2>h2 5</h2>
+        <button onclick="changeH()">변경</button>
+    </div>
+    <script>
+        function changeH() {
+            const h2s=document.querySelectorAll("#h-container>h2");
+            console.log(h2s);
+            for(let i=0; i<5; i++) {
+                // console.log(h2s[i]);
+                if(i%2==0)
+                h2s[i].style.backgroundColor="magenta";
+            else h2s[i].style.backgroundColor="lime";
+            }
+        }
+    </script>
+
+    <h3>check된 input태그 확인하기</h3>
+    <div id="check-container">
+        <button onclick="checkAll()">전체선택</button> <button onclick="checkCancel()">전체해제</button>
+        <input type="checkbox" name="lang" id="" value="html" checked>html
+        <input type="checkbox" name="lang" id="" value="css" checked>css
+        <input type="checkbox" name="lang" id="" value="javascript" checked>javasc
+        <input type="checkbox" name="lang" id="" value="jq" checked>jq
+        <input type="checkbox" name="lang" id="" value="vue.js" checked>vue.js
+        <button onclick="checkValue()">체크확인</button>
+        <div id="check-result"></div>
+      
+    </div>
+    <script>
+        function checkAll() {
+            const checks = document.querySelectorAll("#check-container>input");
+            for(let i=0; i<checks.length;i++) {
+                if(!checks[i].checked) {
+                    checks[i].checked=true;
+                }
+            }
+        }        
+
+        function checkCancel() {
+            const checks = document.querySelectorAll("#check-container>input");
+            for(let i=0; i<checks.length;i++) {
+                if(checks[i].checked) {
+                    checks[i].checked=false;
+                }
+            }
+        }        
+
+
+
+        function checkValue() {
+            const checks = document.querySelectorAll("#check-container>input");
+            console.log(checks);
+            let total ="";
+            for(let i=0;i<checks.length;i++) {
+                console.log(checks[i].checked);
+                if(checks[i].checked) {
+                    total+=checks[i].value+" ";
+                }
+            }
+            document.getElementById("check-result").innerText=total;
+        }
+    </script>
+</body>
+</html>
