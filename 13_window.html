@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>윈도우객체</title>
+</head>
+<body>
+    <h2>윈도우객체</h2>
+    <p>
+        브라우저의 창(탭) 한개에 윈도우객체 하나가 생성됨.<Br>
+        윈도우객체 내부에는 BOM,DOM객체들이 속성으로 저장되어있음<br>
+        BOM : 브라우저의 정보를 관리하는 객체 -> location, navigator, history, screen<br>
+        DOM : html문서를 다루는객체 -> document<br>
+    </p>
+    <script>
+        console.log(window);
+    </script>
+
+    <h4>새 창 만들기 : open()이용</h4>
+    <p>
+        open("","","");<br>
+        1 : 창 생성시 연결할 주소(url)<br>
+        2 : 창의 내용을 출력할 위치(새창(default)-"_blank",현재창-"_self")<br>
+        3 : 새창을 생성하는 옵션(크기, 위치...)<br>
+        return window객체<br>
+    </p>
+    <button onclick="createWin();">새창만들기</button>
+    <script>
+        const createWin=function(){
+            const childWind=open("","_blank","width=600,height=200");
+            // const childWind=open("./12_ES6문법.html","_self","width=600,height=200");
+            console.log(childWind);
+            let temp=`<script>
+                function sendData(){
+                    let parentElement=opener.document.getElementById('target');
+                    let val=document.getElementById('data').value;
+                    parentElement.innerHTML+="<h2>"+val+"</h2>";
+                }`;
+            temp+=`</`;
+            temp+=`script>`;
+            childWind.document.write(` 
+                <html>
+                    <body>
+                        <h2>부모태그 수정</h2>
+                        <input type='text' id='data'>
+                        <button onclick='sendData();'>변경하기</button>
+                    </body>
+                    ${temp}
+                </html>
+            `);
+        }
+    </script>
+    <div id="target"></div>
+    <h3>윈도우 닫기</h3>
+    <p>close() 함수를 이용해서 처리할 수 있다.</p>
+    <button onclick="winopen()">윈도우열기</button>
+    <button onclick="winclose()">윈도우닫기</button>
+    <button onclick="selfclose()">현재창닫기</button>
+    <script>
+        let targetwin;
+        const winopen=function() {
+            targetwin=open("","_blank","width=200");
+        }
+        const winclose=function() {
+            targetwin.close();
+        }
+
+        const selfclose=function() {
+            window.close();
+        }
+    </script>
+
+    <h3>setTimeout(), setInterval() 함수</h3>
+    <p>
+        setTimeout() : 일정시간 후 로직이 실행되는 기능 -> 페이지로딩 후 한번만 실행 <br>
+        setInterval() : 일정시간 간격으로 로직이 실행되는 기능 -> 종료시킬때까지 계속실행 <br>
+        두개의 인수받음 <br>
+        1 : 실행한 로직, 콜백함수 <br>
+        2 : 일정시간, ms(1/1000) <br>
+
+    </p>
+
+    <h2>3초후 변경된 페이지로 이동합니다.</h2>
+    <div id="date-container"></div>
+    <button onclick="stopMove()">이동하지마!</button>
+    <button onclick="stopTime()">시간그만가!</button>
+
+    <script>
+        const stopMove=()=> {
+            clearTimeout(move);
+        }
+        const stopTime =()=>{
+            clearInterval(clock);
+        }
+        //        const move = setTimeout(()=>{
+        //     location.assign("https://www.genia.academy")
+        // },3000)
+
+      const clock = setInterval(()=>{
+            const $container=document.getElementById("date-container");
+            const today = new Date();
+            $container.innerHTML=`<h2>${today.toTimeString().substring(0,today.toTimeString().indexOf(" "))}</h2>`;
+        },1000);
+    </script>
+
+    <div id="test">
+        <h3>1. js에서 태그정보를 가져올때 사용하는 객체는? <span id="time">10</span></h3>
+        <p><label><input type="radio" name="1" value="window">window</label></p>
+        <p><label><input type="radio" name="1" value="document">document</label></p>
+        <p><label><input type="radio" name="1" value="location">location</label></p>
+        <p><label><input type="radio" name="1" value="navigator">navigator</label></p>
+        <p><label><input type="radio" name="1" value="screen">screen</label></p>
+    </div>
+
+    <script>
+        let count = 10;
+        const exam = setInterval(()=>{
+           const $timecontainer = document.getElementById("time");
+           $timecontainer.innerText=--count;
+           if(count==0) {
+             clearInterval(exam);
+             alert("시간초과 탈락!");
+             const inputs = document.querySelectorAll("#test input[type='radio']");
+             inputs.forEach(e=>{
+                e.disabled=true;
+             })
+           }
+         },1000)
+    </script>
+
+    <h2 id="change">여러분 내일부터 3일간 연휴예요~~~~ </h2>
+        <script>
+            let flag=true;
+            setInterval(()=>{
+                const target = document.getElementById("change");
+                if(flag) {
+                    target.style.backgroundColor="magenta";
+                }else {
+                    target.style.backgroundColor="lime";
+                }
+                flag=!flag;
+            },10)
+        </script>
+
+        <h3>창에 대한 위치, 크기를 조정하는 함수</h3>
+        <p>
+            moveTo(x,y) :  윈도우 위치변경 <br>
+            resizeTo(w,h) : 윈도우창의 크기를 변경 <br>
+        </p>
+
+        <button onclick="newWindow();">새창</button>
+        <button onclick="moveWindow();">창위치변경</button>
+        <button onclick="resizeWindow();">창의크기변경</button>
+        
+        <script>
+            let targetWin;
+            const newWindow=()=> {
+                targetWin = open("","_blank","width=100, height=100")
+            }
+
+            const moveWindow=()=> {
+                const x=Math.floor(Math.random()*2000+1);
+                const y=Math.floor(Math.random()*2000+1);
+                targetWin.moveTo(x,y);
+            }
+
+            const resizeWindow=()=> {
+                const x=Math.floor(Math.random()*2000+1);
+                const y=Math.floor(Math.random()*2000+1);
+                targetWin.resizeTo(x,y);
+            }
+            
+        </script>
+</body>
+</html>

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함수 활용하기</title>
+</head>
+<body>
+        <h2>함수 활용하기</h2>
+        <ul>
+            <li>
+                <p>선언적 함수 : 함수를 선언할때 함수명을 명시</p>
+                <p>function 함수명 :([매개변수,매개변수2...]){로직 [return값]}</p>
+                <p>일반적으로 함수를 선언할때 사용 <br>
+                    동일한 함수명으로 이름을 설정하면 덮어쓰기됨 주의! <br>
+                    중복선언도 가능 ! 주의 <br>
+                    함수 호이스팅이 발생 <br>
+                </p>
+            </li>
+            <li>
+                <p>익명함수 : 함수를 선언할때 함수명을 명시하지 않는 것, 변수(전역,지역,매개변수)에 저장해서 사용 </p>
+                <p>const f = function([변수명,변수명...]){로직 [return값]};
+                    test(function(){});//매개변수 저장
+                    function test() {
+                        let f = function(){};
+                    }
+                </p>
+                <p>
+                    특정함수의 인수(콜백함수)로 전달할때 많이 사용 <br>
+                    함수의 중복, 덮어쓰기 방지하기 위해서 사용할 수 있다. <br>
+                    const에 저장 <br>
+                </p>
+            </li>
+        </ul>
+
+        <h3>선언적 함수 이용하기</h3>
+        <script>
+            // 함수 호이스팅 
+            basicFunc();
+
+            function basicFunc() {
+                console.log("우와 내가 선언한 첫 함수야!");
+            }
+            //함수 호출하기
+            // basicFunc();
+
+            //매개변수 있는 선언적 함수
+            //변수선언시 사용하는 예약어를 사용하지 않는다.
+            // function paramFunc(var name, let age, const gender) {
+            function paramFunc(name,age,gender) {
+                // console.log(name,age,gender);
+                if(typeof name=='string'&&typeof age =='number'&&typeof gender=="string") {
+                console.log(name,length);
+                console.log(age+10);
+                console.log(gender.charAt(0));
+                } else {
+                    // console.error("매개변수 타입을 부적합합니다.");
+                    throw new Error("매개변수 타입 불일치!");
+                }
+            }
+
+            paramFunc("유병승",19,'남');
+            //매개변수에 타입이 지정되지 않기 때문에 모든 값을 전달할 수 있음 
+            paramFunc(19,20,30); //아무값이나 전달이가능 (동적)
+        </script>
+
+        <script>
+            function paramFunc2 (name="홍길동",age=19, hobby=[]){
+                console.log(name,age)
+                console.log(arguments);
+                for(let i =0; i<arguments.length;i++){
+                    console.log(arguments[i]);
+                }
+
+            }
+            //매개변수를 초과해서 호출 해보기
+            paramFunc2("유병승",19,1,2,3,4);
+            //매개변수를 부족하게 호출 해보기
+            paramFunc2(); 
+
+            //초과로 전달된 인수는 argument객체를 이용해서 가져올 수 있다.
+
+            //매개변수에 Default값 선언하기 
+        </script>
+
+        <script>
+            //반환형이 있는 함수 선언하기 
+            function returnTest() {
+                // return "여러분 힘내세요~ 비오는데 밖에 나가면 양말이 젖어요";
+                return [];
+            }
+            let result = returnTest();
+            console.log(result);
+
+            function returnTest() {
+                    return 100;
+                    // 덮어쓰기 / returnTest 동일한 이름 
+                }
+        </script>
+        <h3>함수 중복선언하기 </h3>
+            <script>
+                var duplicateFunc = function(su,su2) {
+                    return su+su2;
+                }
+                
+            //    function duplicateFunc(su,su2) {
+            //     return su+su2;
+            //    }
+               const result2 = duplicateFunc(10,20);
+               console.log(result2);
+            //    function duplicateFunc(su,su2) {
+            //     return su*su2;
+            //    }
+                // function duplicateFunc(su) {
+                //     return su*5;
+                // }
+
+                var duplicateFunc=function(su) {
+                    return su*5;
+                }
+
+                const result3 = duplicateFunc(10,20);
+               console.log(result3);
+                </script>
+
+                <div id="tbl-container">
+                    <table>
+                        <tr>
+                            <th>이름</th>
+                            <th>나이</th>
+                            <th>성별</th>
+                        </tr>
+                    </table>
+                        <input type="text" name="name" id="" placeholder="이름입력"> <br>
+                        <input type="text" name="age" id="" placeholder="나이입력"> <br>
+                        <input type="text" name="gender" id="" placeholder="성별입력"> <br>
+                        <button onclick="addTr();">추가하기</button>
+                </div>
+                <script>
+                    function addTr(){
+                        const table = document.querySelector("#tbl-container>table");
+                        const inputs = document.querySelectorAll("#tbl-container>input");
+                        const newTr = createTr(inputs[0].value,inputs[1].value,inputs[2].value);
+                        // createTr();
+                        table.innerHTML+=newTr;
+                    }
+
+                    function createTr(name="JMS",age=27,gender='여') {
+                        return "<tr><td>"+name+"</td><td>"+age+"</td><td>"+gender+"</td></tr>";
+                    }
+                </script>
+
+                <h3>익명함수 활용하기</h3>
+                <p>
+                    함수를 선언하고 변수에 대입해서 좋음
+                    function(){}
+                </p>
+                <script>
+                    //익명함수 호이스팅!
+                        // basicAnnoFunc();
+                    var basicAnnoFunc = function() {
+                        console.log("익명함수");
+                    }
+                    basicAnnoFunc();
+
+                    var paramAnnoFunc = function(su,su2) {
+                        console.log(su,su2);
+                        console.log(arguments);
+                    }
+                    paramAnnoFunc(10,20,'가','나','다');
+                    paramAnnoFunc();
+
+                    var returnAnnoFunc=function(su,su2){
+                    return su*su2;
+                 }
+                    const result4=returnAnnoFunc(20,30);
+                    console.log(result4);
+                    var returnAnnoFunc=function(su){
+                    return su*5;
+                }
+                    const result5=returnAnnoFunc(20,30);
+                    console.log(result5);
+
+                    const returnAnnoFunc2=function(str=""){
+                    return str.length;
+                }
+
+                    // const returnAnnoFunc2=function(su){
+                    //     return su/3;
+                    // }
+                </script>
+            <h3>익명함수를 매개변수로 전달하기</h3>
+            <p>
+                콜백함수, <br>
+                1. 이벤트핸들러를 등록할때 <br>
+                2. js의 내장객체가 제공하는 메소드를 이용할때 <br>
+            </p>
+            <script>
+                function paramFunc3(title,fnTest) {
+                    console.log(title);
+                    // fnTest(10,title); 
+                    //함수를 매개변수로 전달할때는 형식이 정해져있음 
+                }
+                paramFunc3("매개변수 함수",function(){alert("우와 신기해")});
+                paramFunc3("선언된 함수",paramAnnoFunc);
+
+                paramFunc3("선언된 함수",100);
+            </script>
+            
+            <button id="btn">이벤트연결</button>
+            <div id="print"></div>
+            <script>
+                document.getElementById("btn")
+                .addEventListener("click",function(){
+                    alert("클릭했네!");
+                    // console.log(e);
+                })
+
+                setTimeout(function(){
+                    document.getElementById("print").innerText+="우와 신기";
+                },2000);
+
+            </script>
+
+            <h3>화살표 함수</h3>
+            <p>
+                익명함수를 간단하게 표현하는 표현법
+            </p>
+            <p>
+                기본 : ()=>{} == function(){} <br>
+                매개변수한개 : 변수명=>{로직} <br>
+                매겨변수한개, 바로리턴값설정 : 변수명=>리턴값 <br>
+                반환형이 있음 : ()=>{로직 return 값;} <br>
+                매개변수있고 반환형 : (변수명,변수명2...)=>{로직 return 값} <br>
+            </p>
+
+            <script>
+                const arrowFunc=()=> {
+                    console.log("화살표함수");
+                }
+                arrowFunc();
+
+                const arrowParam=(name,age)=>{
+                    console.log(name);
+                    console.log(age);
+                }
+                arrowParam("유병승",19);
+                arrowParam("유병승");
+                arrowParam("유병승",19,"남","경기도 시흥시");
+
+                const arrowOneParam=name=>{
+                    console.log(name);
+                }
+                arrowOneParam("오상진");
+                
+                // const arrowReturn=()=>{
+                //     return 100;
+                // }
+                let msg = "화살표 함수 멋진데...";
+                const arrowReturn=()=>msg.length>10?"말이 많네":"적당하네";
+                const result6=arrowReturn();
+                console.log(result6);
+
+                const arrowParamReturn=name=>name.length;
+                const result7=arrowParamReturn("유병승");
+                console.log(result7);
+           </script>
+        <p>
+            화살표 함수에서는 arguments객체가 없다! 
+        </p>
+        <script>
+            const arrowArgument=(...args)=>{
+                // console.log(arguments);
+                console.log(args);
+            }
+            arrowArgument(1,2,3,4,5,6,7,8);
+        </script>
+
+        <h3>function(){} 함수에서 this와 ()=>{}에서의 this</h3>
+        <p>
+            function(){} (익명함수)의 this는 일반적으로 함수를 가지고 있는 객체가 this값에 바인딩됨, 실행하는 함수에서 재설정할 수 있음 <br>
+            화살표함수(()=>{}) this가 window객체를 바인딩, 재설정 불가능 <br>
+        </p>
+        <button id="btn2">this값 테스트</button>
+
+        <script>
+            // document.getElementById("btn2").addEventListener("click",function(){
+            //     // console.log(this); // 태그Element
+            //     // this.style.backgroundColor="magenta";
+            // })
+
+            // addEventListener("click",(e)=>{
+            //     console.log(this);
+            //  //     this.style.backgroundColor="magenta";
+            //     e.target.style.backgroundColor="magenta";
+            // })
+
+            function thisTestDe() {
+                console.log(this);
+            }
+            let thisTest=function() {
+                console.log(this);
+            }
+            let thisTestArrow=()=>{
+                console.log(this);
+            }
+            const obj={
+                thisTest:function(){
+                    console.log(this);
+                },
+                thisTestArrow:()=>{
+                console.log(this);
+                }
+            }
+            thisTestDe();
+            thisTest();
+            thisTestArrow();
+            
+            console.log("obj함수출력")
+            obj.thisTest();
+            obj.thisTestArrow();
+
+            //함수의 this값 바인딩 처리하기 
+            //call, apply함수이용 
+            thisTest.call({"name":"유병승",age:19});
+
+            thisTestArrow.call({"name":"유병승",age:19}); //화살표 함수 바인딩 안됨 -> this값 안쓰는게 좋음 
+        </script>
+
+            <h3>함수를 반환하는 함수</h3>
+            <p>
+                function(){
+                    return function(){};
+                }
+            </p>
+
+            <script>
+                const returnFunc=()=> {
+                    const innerFunc=(msg)=>{
+                        console.log(msg);
+                    }
+                    return innerFunc;
+                }
+                const funcResult=returnFunc();
+                console.log(funcResult);
+                funcResult("우와 신기방기");
+                returnFunc()("이것도 가능해!");
+            </script>
+
+            <h3>closure이용하기</h3>
+            <p>
+                함수를 실행한 후 함수 내에 있는 지역변수는 삭제된다. <br>
+                근데!!!!
+                함수실행 후 반환하는 함수에서 그 지역변수를 사용하면 지역변수를 삭제하지 않고 유지함. <br>
+                클로저 !! 
+            </p>
+
+            <script>
+                const closureTest=()=> {
+                    let num=10;
+                    return ()=>{
+                        console.log(++num);
+                    }
+                }
+                const returnClosure = closureTest();
+                returnClosure();
+                returnClosure();
+                returnClosure();
+                // closureTest();
+                // closureTest();
+                // closureTest();
+
+                const closureTest2=(title)=>{
+                    return (msg)=> {
+                        return title+=msg;
+                    }
+                }
+                const returnClosure2=closureTest2("유병승님 : ");
+                let resultStr = returnClosure2("천재");
+                console.log(resultStr);
+                resultStr = returnClosure2("하하하하");
+                console.log(resultStr);
+                const returnClosure3=closureTest2("JMS : ");
+                resultStr = returnClosure3("부자");
+                console.log(resultStr);
+                resultStr = returnClosure3("!하하하하");
+                console.log(resultStr);
+
+                //곱하기하는 기능 
+                const multi=(dan)=> {
+                    return (su) => {
+                        return dan*su;
+                    }
+                }
+                const four=multi(4);
+                console.log(four(2));
+            </script>
+
+<h3>클릭한 횟수 확인</h3>
+<h3 id="countTarget">0</h3>
+<button onclick="clickNumber();">클릭</button>
+<script>
+    
+    // const tempCount=()=>{
+    //     let count=0;
+    //     return ()=>{
+    //         document.getElementById("countTarget")
+    //         .innerText=++count;
+    //     }
+    // }
+    // const clickNumber=tempCount();
+    const clickNumber=(()=>{
+        let count=0;
+        return ()=>{
+            document.getElementById("countTarget")
+            .innerText=++count;
+        }
+    })();//자동실행함수
+    </script>
+    <h3>첨부파일등록기능</h3>
+    <div id="file-container">
+        <fieldset>
+            <legend>첨부파일 <span style="color: red;">첨부파일은 5개까지 가능</span></legend>
+            <button onclick="addFile()">추가</button>
+            <div id="file-input">
+                <input type="file" name="upfile" id="">
+            </div>
+        </fieldset>
+    </div>
+
+    <script>
+   
+        const addFileTem=()=>{
+            let count=0;
+            return ()=>{
+                if(count<4){
+                 document.getElementById("file-input").innerHTML+="<input type='file' name='upfile'>";
+                }else {
+                    alert("5개까지만가능");
+                }
+            }
+        } 
+         const addFile = addFileTem();
+
+    //   const addFile=(()=>{
+    //     let count=0;
+    //     return ()=> {
+    //         if(count<4){
+    //             const input = createinput(count);
+    //             document.getElementById("file-input")
+    //             .innerHTML+=input;
+    //         }else {
+    //             alert("첨부파일은 5개까지만 가능합니다.");
+    //         }
+    //     }
+
+    //   })();
+    //   const createinput=(count)=>{
+    //     return "<input type='file' name='upfile'>"+count+"'>";
+    //   }
+
+    //   const addFileTemplate=(limit)=>{
+    //     let count=0;
+    //     return (id)=>{
+    //         if(++count<limit) {
+    //             document.getElementById(id).innerHTML+=createinput(count);
+    //         } else {
+    //             alert(limit+"까지만 추가 가능 ");
+    //         }
+    //     }
+    //   }
+    //   const myAddFile=addFileTemplate(2);
+     </script>
+     <!-- <div id="testTarget"></div>
+     <button onclick="myAddFile('testTarget')">클릭</button> -->
+</body>
+</html>

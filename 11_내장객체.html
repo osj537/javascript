@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내장객체</title>
+</head>
+<body>
+    <h2>js에서 기본으로 제공하는 객체들</h2>
+    <p>
+        String, Number, Data, Array, Object,
+    </p>
+    <h3>Object 객체 이용하기</h3>
+    <script>
+        let obj={name:"유병승",age:19,gender:'남',hobby:["운동","코딩","독서"]};
+        console.log(Object.keys(obj));
+        console.log(Object.values(obj));
+        console.log(obj.hasOwnProperty("item"));
+
+        console.log(obj.toString());
+        console.log(obj.valueOf());
+    </script>
+
+    <h3>String객체 이용하기</h3>
+    <p>자바 String 클래스에서 제공하는 메소드와 유사 </p>
+    <script>
+        let temp="abcdefGHhi";
+        let result = temp.toLowerCase();
+        console.log(result);
+        result = temp.toUpperCase();
+        console.log(result);
+
+        temp ="banana";
+        result = temp.replace("a","i")
+        console.log(result);
+        result = temp.replaceAll("a","i");
+        console.log(result);
+
+        //특정문구가 포함되어있는지 확인하는 함수
+        result = temp.includes("o");
+        console.log(result);
+        temp = "유병승,장명수,오상진,이난희,박지송";
+        result = temp.split(",");
+        console.log(result);
+    </script>
+
+    <h3>Number객체 이용하기</h3>
+    <script>
+        let su = 10;
+        let suStr="10원";
+        console.log(su-suStr);
+        if(Number.isNaN(su-suStr)==NaN) {
+            console.log("계산할 수 없습니다");
+        }
+        console.log(Number(suStr));
+        console.log(Number.isInteger(su));
+        console.log(Number.isInteger(0.1234));
+    </script>
+
+    <h3>Math객체 이용하기</h3>
+    <script>
+        result = Math.floor(3.14);
+        console.log(result);
+        console.log(Math.floor(Math.random()*10));
+    </script>
+
+    <h3>Date객체 이용하기</h3>
+    <p>
+        날짜를 처리하는 객체
+    </p>
+    <input type="datetime-local"  id="reservation">
+    <button onclick="dateCheck();">저장</button>
+    <script>
+        function dateCheck() {
+            const inputDate = document.getElementById("reservation").value;
+            console.log(inputDate,typeof inputDate);
+            const date = new Date (inputDate);
+            console.log(date);
+        }
+        let today = new Date();
+        console.log(today);
+
+        //날짜에서, 년,월,일 가져오기
+        console.log("년 : "+today.getFullYear());
+        console.log("월 : "+(today.getMonth()+1));
+        console.log("일 : "+today.getDate());
+        console.log("시 : "+today.getHours());
+        console.log("분 : "+today.getMinutes());
+        console.log("초 : "+today.getSeconds());
+        console.log(today.toDateString());
+        console.log(today.toTimeString());
+        console.log(today.toJSON());
+
+        today = new Date(2025,2,27,9,0);
+        console.log(today);
+        today.setFullYear(2026);
+        console.log(today);
+
+    </script>
+
+    <h3>eval() 함수</h3>
+    <p>
+        문자열 작성된 javascript코드를 실행해주는 함수
+    </p>
+    <textarea name="code" id="code" rows="10" cols="30"></textarea>
+    <button onclick="testEval();">코드실행</button>
+    <script>
+        function testEval() {
+            const code = document.getElementById("code").value;
+        console.log(code,typeof code);
+        eval(code);
+        }
+       
+    </script>
+</body>
+</html>

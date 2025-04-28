@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>단항연산자</h3>
+    <p>
+        ++, --
+    </p>
+    <h3 id="count-text">0</h3>
+    <button onclick="clickCount()">+</button>
+    
+    <script>
+        let con=0;
+        const clickCount = function() {
+           document.getElementById("count-text").innerText=++con;
+        }
+
+        let count=0;
+        count++;
+        console.log(count);
+        let result=count++;
+        console.log(count,result)
+    </script>
+
+    <h3>비교논리 연산자</h3>
+    <p>
+        == : 동등비교 -> 타입을 확인하지않음
+        != : 불일치비교 -> 타입을 확인하지않음
+        === : 동등비교 -> 타입까지 확인
+        !== : 불일치비교 -> 타입까지 확인
+        >,>=,<,<= : 대소비교 
+    </p>
+    <p>
+        && : and연산 <br>
+        || : or연산 <br>
+    </p>
+    <script>
+        let num=200;
+        let num2="200";
+        let num3=100;
+        let num4="300원";
+        let num5="200";
+        console.log(num==num2);
+        console.log(num===num2);
+        console.log(num!=num2);
+        console.log(num!==num2);
+
+        console.log(num2===num5);
+
+        console.log(num>num3);
+        console.log(num>num4);
+
+        //문자열에 대한 대소비교하기 
+        //>,< ,<=,>=
+        let str="가나다";
+        let str2="하라바";
+        console.log(str>str2);
+        console.log(str<str2);
+
+        console.log(str<str2&&num==num3);
+
+    </script>
+    <h3>복합대입연산자</h3>
+        <p>
+            +=,-=,*=,/=
+        </p>
+        
+            <div id="tbl-target">
+                <table border="1">
+                  
+                </table>
+                <button onclick="addTr();">추가</button>
+            </div>
+
+            <script>
+           
+            
+                const addTr = function() {
+                    const table=document.querySelector("#tbl-target>table");
+                    let tr="<tr>";
+                        tr+="<td>오상진</td>";
+                        tr+="<td>25</td>";
+                        tr+="<td>남자</td>";
+                        tr+="</tr>";
+                        table.innerHTML+=tr;
+                   }
+            </script>
+        
+
+
+        <script>
+            let data="";
+            data+="안녕";
+            data+="곤니찌와";
+            data+="니하오";
+            console.log(data);
+        </script>
+
+        <h3>삼항연산자</h3>
+        <p>
+            조건식?true일떄:false일떄
+        </p>
+        <script>
+            let height=180.5;
+            let msg=height>200?'키가 크네요':'아쉽네요';
+            console.log(msg);
+        </script>
+
+        <h3>간편연산자</h3>
+        <p>
+            &&, || <br>
+            true&&값
+            flase||값 
+        </p>
+        <script>
+            // msg=height>181&&'키가 크네요';
+            msg=height>200||'아쉽네요';
+            console.log(msg);
+        </script>
+
+        <div id="msg-container">
+            <input type="text" class="msg">
+            <button onclick="addMsg();">메세지추가</button>
+            <div id="write-msg"></div>
+        </div> 
+        <script>
+            const addMsg=function() {
+               const msg = document.querySelector("#msg-container>.msg").value;
+                console.log(msg);
+                document.getElementById("msg-container").innerHTML+="<h4>"+msg+"</h4>";
+            }
+            
+        
+        </script>
+
+        <br><br><br><br><br>
+
+        <div id="table-input">
+            <input type="text" name="div">
+            <input type="text" name="title">
+            <input type="text" name="writer">
+            <button onclick="addData()">저장</button>
+            <table>
+                <tr>
+                    <th>구분</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                </tr>
+            </table>
+        </div>
+        <script>
+            const addData=function(){
+                const table=document.querySelector("#table-input>table");
+                const inputDatas=document.querySelectorAll("#table-input>input");
+                const div=inputDatas[0].value;
+                const title=inputDatas[1].value;
+                const write=inputDatas[2].value;
+                let tr="<tr>";
+                    tr+="<td>"+div+"</td>";
+                    tr+="<td>"+title+"</td>";
+                    tr+="<td>"+write+"</td>";
+                    tr+="</tr>";
+                table.innerHTML+=tr;
+                // --------------------
+                // let tr="<tr>";
+                // document.querySelectorAll("#table-input>input")
+                // .forEach(e=>{
+                //     const v=e.value;
+                //     tr+="<td>"+v+"</td>";
+                // });
+                // tr+="</tr>";    
+                // table.innerHTML+=tr;
+            }
+        </script>
+</body>
+</html>

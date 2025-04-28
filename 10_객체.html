@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>객체</title>
+</head>
+<body>
+    <h2>객체 선언과 사용하기</h2>
+    <p>
+        자바스크립트에서 객체는 key:value형식의 구조를 가진다. <br>
+        객체에 선언된 key는 하나의 변수다.<br>
+        key에는 자료형이 없기 때문에 모든 데이터를 저장할 수 있다.<br>
+        특정 key에 함수를 저장하면 객체의 메소드가 된다.<br>
+        key는 중복이 불가능함 -> 덮어쓰기 됨.<br>
+    </p>
+    <h3>객체 생성하기</h3>
+    <p>
+        1. 리터럴이용하기 : {key:value, key2:value2,...}<br> 
+        2. 함수이용하기<br>
+            1) 객체반환함수선언<br>
+            2) 생성자함수선언<br>
+    </p>
+    <h4>리터럴 이용하기</h4>
+    <script>
+        let obj={};
+        console.log(obj, typeof obj);
+        obj={
+            name:'천재교육',
+            age:19,
+            "hobby":["코딩","운동","오버워치"],
+            "my address":"서울시 금천구",
+            getString:function(){
+                console.log(this);
+                return this.name+this.age+this.hobby+this.address;
+            }
+        }
+        // obj2={
+        //     name:'천재교육',
+        //     age:19,
+        //     "hobby":["코딩","운동","오버워치"],
+        //     "my address":"서울시 금천구",
+        //     getString:function(){
+        //         console.log(this);
+        //         return this.name+this.age+this.hobby+this.address;
+        //     }
+        // }
+        console.log(obj);
+    </script>
+    <h4>객체 반환 함수 선언하기</h4>
+    <script>
+        function createPerson(inputName="미설정",inputAge=0,inputItem={},inputAddress="미설정"){
+            const p={
+                name:inputName,
+                age:inputAge,
+                item:inputItem,
+                address:inputAddress
+            };
+            return p;
+        }
+        let p=createPerson("윤우식",27,{name:"부채",price:6000},"경기도 파주시");
+        let p2=createPerson();
+        console.log(p2);
+        console.log(p);
+    </script>
+
+    <h4>생성자 함수 선언하기</h4>
+    <script>
+        function Person(inputName,inputAge,inputItem,inputAddress){
+            //객체 필드는 this예약어를 이용해서 선언
+            this.name=inputName;
+            this.age=inputAge;
+            this.item=inputItem;
+            this.address=inputAddress;
+            this.toString=function() {
+                return this.name+this.age+this.item+this.address;
+            }
+        }
+        let p3 =new Person("김경주",28,{name:"계산기",price:1800},"경기도 안양");
+        console.log(p3);
+    </script>
+
+    <h3>객체 이용하기</h3>
+    <p>
+        생성된 객체 속성에 접근하기 <br>
+        1.접근연산자 .을이용 <br>
+        2.[]연산자를 이용 <br>
+    </p>
+    <script>
+        console.log(obj);
+        console.log(obj.name);
+        console.log(obj.age);
+        console.log(obj.hobby[0]);
+
+        console.log(obj.getString());
+        console.log(obj["name"]);
+        console.log(obj["my address"]); //띄우쓰기 특수문자 사용하면 대괄호로만 접근이 가능
+
+        obj.hobby.forEach(v => console.log(v));
+        obj["hobby"].forEach(v=>console.log(v));
+
+        //객체에 저장된 전체 속성값 가져오기
+        //1. For in 문
+        // for (변수 in 객체명) -> 변수에 객체의 key값을 저장 
+
+        for(let k in obj) {
+            // console.log(k,obj.k); X
+            console.log(k,obj[k]);
+        }
+
+        //2. Object객체가 제공하는 메소드이용하기
+        // keys(객체명), values(객체명)
+        const keys = Object.keys(obj);
+        const values = Object.values(obj);
+        console.log(keys);
+        console.log(values);
+        Object.values(obj)
+        let result =Object.values(obj)
+            // .filter(v=>typeof v=='function')
+            // .forEach(v=>console.log(v.call(obj)));
+            .find(v=>typeof v=='function').call(obj);
+            console.log(result); 
+    </script>
+
+    <h3>객체 속성값을 수정하기</h3>
+    <script>
+        console.log(obj);
+        obj.name="유병승";
+        console.log(obj);
+        obj.hobby.splice(obj.hobby.length,0,"먹기(jms)","걷기","뛰기");
+        obj.hobby=obj.hobby.concat(["먹기(jms)","걷기","뛰기"]);
+        console.log(obj);
+        obj["my address"]="경기도 평택시 대저택";
+        console.log(obj);
+    </script>
+
+    <h3>객체에 새로운 속성을 추가, 삭제</h3>
+    <p>
+        js에서는 객체의 속성을 동적으로 수정할 수 있다 <br>
+        속성추가 : 객체명, 새로운속성명 = 값 <br>
+        속성삭제 : delete 예약어를 이용 <br>
+    </p>
+    <script>
+        obj={};
+        console.log(obj);
+        obj.data=200;
+        console.log(obj);
+        console.log(obj.data);
+        obj["age"]=19;
+        console.log(obj["age"]);
+
+        delete obj.age;
+        console.log(obj);
+
+
+    </script>
+
+    <h3>객체 변경 금지하기</h3>
+    <p>
+        Object객체가 제공하는 메소드를 이용해서 처리할 수있다. <br>
+        1. Object.freeze() : 객체 추가, 수정, 삭제 불가능 <br>
+        2. Object.seal() : 수정 가능 <br>
+        3. Object.preventExctension : 삭제, 수정가능 <br>
+    </p>
+    <script>
+        const freezeObj = {name:"freeze",content:"건들지마 물꺼얌!"};
+        console.log(freezeObj);
+
+        Object.freeze(freezeObj);
+
+        //속성추가 안됨!
+        freezeObj["data"]=500;
+        console.log(freezeObj);
+
+        //  속성삭제 안됨!
+        delete freezeObj.content;
+        console.log(freezeObj);
+
+        freezeObj.content="이제 곧 쉬는시간 힘내세요~";
+        console.log(freezeObj);
+
+        Object.values(freezeObj).forEach(v=>console.log(v));
+
+
+        const sealObj={name:"seal",content:"수정은 가능할꺼야!"};
+        console.log(sealObj);
+
+        Object.seal(sealObj);
+
+        sealObj["test"]="와우";
+        console.log(sealObj);
+        delete sealObj.content;
+        console.log(sealObj);
+
+        sealObj.content="좋은말로 할때 수정해!";
+        console.log(sealObj);
+
+        const preventObj = {name:"prevent",content:"수정삭제가능"};
+        console.log(preventObj);
+        Object.preventExtensions(preventObj);
+
+        preventObj.test=200;
+        console.log(preventObj);
+
+        preventObj.name="이것까지만 하고 끝";
+        console.log(preventObj);
+
+        delete preventObj.content;
+        console.log(preventObj);
+
+        //객체 상태를 파악하는 함수
+        //Object.isFronzen() : freeze된 객체인지. 객체가 추가, 수정, 삭제가 불가능 return boolean
+        //Object.isSealed() : seal가 적용됐는지 return boolean
+        //Object.isExctensible() : 추가가 가능한지 여부 
+        console.log("freezeObj : "+Object.isFrozen(freezeObj));
+        console.log("freezeObj : "+Object.isSealed(freezeObj));
+        console.log("freezeObj : "+Object.isExtensible(freezeObj));
+
+        console.log("sealObj : "+Object.isFrozen(sealObj));
+        console.log("sealObj : "+Object.isSealed(sealObj));
+        console.log("sealObj : "+Object.isExtensible(sealObj));
+
+        console.log("preventObj : "+Object.isFrozen(preventObj));
+        console.log("preventObj : "+Object.isSealed(preventObj));
+        console.log("preventObj : "+Object.isExtensible(preventObj));
+
+        if(!Object.isFrozen(obj)){
+            obj.gender="남";
+        };
+        console.log(obj);
+
+    </script>
+
+    <h3>객체를 배열과 같이 이용하기</h3>
+
+    <script>
+        const persons=[];
+        persons.push(new Person("김경주",28,{name:"서랍장",price:5000},"경기도 안양시"));
+        persons.push(new Person("김희범",27,{name:"키보드",price:250000},"경기도 안양시"));
+        persons.push(new Person("오상진",27,{name:"비타민씨",price:1000},"경기도 수원시"));
+        persons.push(new Person("황민익",27,{name:"무선충전기",price:15000},"경기도 김포시"));
+        console.log(persons);
+        
+        persons.forEach(v=>console.log(v.toString()));
+
+        //경기도 안양시에 사는 사람만 조회하기
+        persons.filter(v=>v.address=="경기도 안양시").forEach(v=>console.log(v.toString()));
+    </script>
+
+    <div id="person-container"></div>
+    <button onclick="printAll();">저장된 사람출력하기</button>
+    <button onclick="itemPrice();">아이템가격이 1만원 이상인 사람</button>
+    <div id="input-container"></div>
+    <!-- div#person-container에 테이블로 출력   
+            이름 나이 아이템 사는곳 
+                    키보드,1000 
+                -->
+        
+        <script>
+            function printAll(){
+            const $container=document.getElementById("person-container");
+            let table="<table>";
+            // let header="<tr><th>이름</th><th>나이</th><th>아이템</th><th>사는곳</th></tr>";
+            const header=createHeader(["이름","나이","아이템","주소"]);
+
+            // for(let i=0;i<persons.length;i++){
+            //     persons[i];   
+            // }
+            // for(const p of persons){
+
+            // }
+            let body="";
+            persons.forEach(v=>{
+                // body+="<tr><td>"+v.name+"</td><td>"+v.age+"</td>"
+                //     +"<td>"+v.item.name+","+v.item.price+"</td>"+
+                //     "<td>"+v.address+"</td></tr>";
+                body+="<tr>";
+                // body+=Object.values(v).filter(v=>typeof v !='function')
+                //       .map(v=>"<td>"+v+"</td>").join("");
+                body+=createBody(v);
+                body+="</tr>";
+            });
+            table+=header+body+"</table>";
+            console.log(table);
+            $container.innerHTML=table;
+        }
+        function createHeader(headers=[]){
+            return headers.reduce((prev,next)=>prev+"<th>"+next+"</th>","<tr>");
+        }
+        function createBody(data={}){
+            return Object.values(data)
+                    .filter(v=>typeof v!="function")
+                    .reduce((p,n)=>{
+                                if(typeof n=='object' && !Array.isArray(n)){
+                                    return p+"<td>"+Object.values(n).join(",")+"</td>";
+                                }
+                                return p+"<td>"+n+"</td>";
+                            },"<tr>");
+        }
+
+        </script>
+
+        <h3>자바스크립트에서 객체속성 정보은닉하기</h3>
+        <p>
+            클로저를 이용해서 처리 
+        </p>
+        <script>
+            function Employee(inputName,inputSalary,inputDept){
+                let name = inputName;
+                let salary = inputSalary;
+                let dept = inputDept;
+                //let 지역변수 
+                
+                this.getName=function() {
+                    return name;
+                }
+                this.setName=function(inputName) {
+                    if(typeof inputName=="string")
+                    name = inputName;
+                else
+                 throw new Error("문자열만 저장이 가능합니다");
+                }
+            }
+            e = new Employee("오상진",10,"개발부");
+            console.log(e.getName());
+            console.log(e.salary);
+            e.setName("유후 배고파");
+            console.log(e.getName());
+            e.setName(201); //317
+        </script>
+
+
+
+</body>
+</html>
